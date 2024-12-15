@@ -4,9 +4,11 @@ import me.dio.academia.digital.entity.Aluno;
 import me.dio.academia.digital.entity.AvaliacaoFisica;
 import me.dio.academia.digital.entity.form.AlunoForm;
 import me.dio.academia.digital.entity.form.AlunoUpdateForm;
+import me.dio.academia.digital.exception.AlunoNotFoundException;
 import me.dio.academia.digital.repository.AlunoRepository;
 import me.dio.academia.digital.service.IAlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,22 +33,28 @@ public class AlunoServiceImpl implements IAlunoService {
 
     @Override
     public Aluno get(Long id) {
-        return null;
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Aluno com ID " + id + " não encontrado"));
     }
 
     @Override
     public List<Aluno> getAll() {
-        return repository.findAll();
+        return repository.findAll(Sort.by(Sort.Direction.ASC, "nome"));
     }
 
     @Override
     public Aluno update(Long id, AlunoUpdateForm formUpdate) {
-        return null;
+        Aluno aluno = repository.findById(id)
+                .orElseThrow(() -> new AlunoNotFoundException
+                        ("Aluno com ID " + id + " não encontrado"));
+        return repository.save(aluno);
     }
 
     @Override
     public void delete(Long id) {
-
+        Aluno aluno = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Aluno com ID " + id + " não encontrado"));
+        repository.delete(aluno);
     }
 
     @Transactional(readOnly = true)
