@@ -5,6 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.dio.academia.digital.entity.Aluno;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 
 /**
  * Classe responsável por receber os dados necessários para criar uma nova Avaliação Física.
@@ -39,15 +43,21 @@ public class AvaliacaoFisicaForm {
    * Identificador único do aluno que será avaliado.
    * Deve corresponder a uma instância válida de {@link Aluno}.
    */
+  @Positive
   private Long alunoId;
 
   /**
    * Peso do aluno registrado no momento da avaliação.
    */
+  @NotNull
+  @Positive
   private double peso;
 
   /**
    * Altura do aluno registrada no momento da avaliação.
    */
+  @NotNull
+  @Positive
+  @DecimalMin(value = "140", message = "'${validatedValue} precisa ser no mínimo {value}.")
   private double altura;
 }
