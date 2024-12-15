@@ -44,5 +44,11 @@ public interface IAlunoService {
   void delete(Long id);
 
 
+  /**
+   * Retorna todas as Avaliações Físicas associadas a um Aluno específico.
+   *
+   * @param id - identificador único do Aluno cujas Avaliações Físicas serão retornadas.
+   * @return - uma lista contendo as Avaliações Físicas vinculadas ao Aluno identificado pelo id fornecido.
+   */
   List<AvaliacaoFisica> getAllAvaliacaoFisica(Long id);
 }
