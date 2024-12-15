@@ -81,5 +81,4 @@ public class AvaliacaoFisicaController {
         service.delete(id);
     }
 
-}*/
 }
