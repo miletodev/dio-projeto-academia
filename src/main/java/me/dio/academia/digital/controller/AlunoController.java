@@ -3,6 +3,7 @@ package me.dio.academia.digital.controller;
 import me.dio.academia.digital.entity.Aluno;
 import me.dio.academia.digital.entity.AvaliacaoFisica;
 import me.dio.academia.digital.entity.form.AlunoForm;
+import me.dio.academia.digital.entity.form.AlunoUpdateForm;
 import me.dio.academia.digital.service.impl.AlunoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -60,5 +61,38 @@ public class AlunoController {
     @GetMapping( "/avaliacoes/{id}")
     public List<AvaliacaoFisica> getAllAvaliacaoFisica(@PathVariable Long id) {
         return service.getAllAvaliacaoFisica(id);
+    }
+
+    /**
+     * Retorna os dados de um aluno específico com base no identificador fornecido.
+     *
+     * @param id O identificador único do aluno a ser recuperado.
+     * @return O objeto Aluno correspondente ao identificador fornecido.
+     */
+    @GetMapping("/{id}")
+    public Aluno get(@PathVariable Long id) {
+        return service.get(id);
+    }
+
+    /**
+     * Atualiza as informações de um aluno existente no sistema.
+     *
+     * @param id O identificador único do aluno que será atualizado.
+     * @param formUpdate Objeto do tipo AlunoUpdateForm contendo os dados que serão atualizados.
+     * @return O objeto Aluno atualizado com os novos dados persistidos.
+     */
+    @PostMapping("/{id}")
+    public Aluno update(@PathVariable Long id, @RequestBody AlunoUpdateForm formUpdate) {
+        return service.update(id, formUpdate);
+    }
+
+    /**
+     * Exclui um aluno do sistema com base no identificador fornecido.
+     *
+     * @param id O identificador único do aluno a ser removido.
+     */
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
     }
 }
