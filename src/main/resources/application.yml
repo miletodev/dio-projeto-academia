@@ -1,9 +1,8 @@
-
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/academia
     username: mileto
-    password: senha
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
