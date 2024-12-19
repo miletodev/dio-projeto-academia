@@ -9,7 +9,9 @@ import me.dio.academia.digital.repository.AvaliacaoFisicaRepository;
 import me.dio.academia.digital.service.IAvaliacaoFisicaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -77,8 +79,8 @@ public class AvaliacaoFisicaServiceImpl implements IAvaliacaoFisicaService {
      */
     @Override
     public AvaliacaoFisica get(Long id) {
-        // Implemente a lógica ou deixe como null, se necessário.
-        return null;
+        return avaliacaoFisicaRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Avaliação Física com o ID " + id + " não encontrada!"));
     }
 
     /**
@@ -90,19 +92,27 @@ public class AvaliacaoFisicaServiceImpl implements IAvaliacaoFisicaService {
     public List<AvaliacaoFisica> getAll() {
         return List.of();
     }
+    
 
     /**
-     * Atualiza os dados de uma avaliação física existente.
+     * Atualiza uma AvaliacaoFisica existente baseado no ID e no form de atualização.
      *
-     * @param id ID da avaliação física a ser atualizada.
-     * @param formUpdate Objeto {@link AvaliacaoFisicaUpdateForm} contendo os novos dados.
-     * @return A instância atualizada de {@link AvaliacaoFisica}.
-     * @throws IllegalArgumentException Se nenhuma avaliação física for encontrada com o ID fornecido.
+     * @param id o ID que vai ter a AvaliacaoFisica atualizado.
+     * @param formUpdate os dados para serem atualizados.
+     * @return a AvaliacaoFisica atualizada.
+     * @throws EntityNotFoundException se nenhuma avaliação com aquele ID for encontrada.
+     * @throws IllegalArgumentException se o form de atualização for null ou inválido.
      */
     @Override
     public AvaliacaoFisica update(Long id, AvaliacaoFisicaUpdateForm formUpdate) {
-        // Implemente a lógica ou deixe como null, se necessário.
-        return null;
+        AvaliacaoFisica avaliacaoFisica = avaliacaoFisicaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Avaliação Física com o ID " + id + " não encontrada!"));
+
+        if (formUpdate != null) {
+            return avaliacaoFisicaRepository.save(avaliacaoFisica);
+        } else {
+            throw new IllegalArgumentException("Verifique os dados informados e tente novamente.");
+        }
     }
 
     /**
@@ -111,9 +121,17 @@ public class AvaliacaoFisicaServiceImpl implements IAvaliacaoFisicaService {
      * @param id ID da avaliação física a ser excluída.
      * @throws IllegalArgumentException Se nenhuma avaliação física for encontrada com o ID fornecido.
      */
-    @Override
-    public void delete(Long id) {
-        // Lógica de exclusão, se necessário
-    }
+        @Override
+        public void delete(Long id) {
+            if (id == null) {
+                throw new IllegalArgumentException("O ID fornecido não pode ser nulo.");
+            }
 
-}
+            AvaliacaoFisica avaliacaoFisica = avaliacaoFisicaRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException(
+                            "Erro ao tentar deletar: Avaliação Física com o ID " + id + " não encontrada no banco de dados."
+                    ));
+
+            avaliacaoFisicaRepository.delete(avaliacaoFisica);
+        }
+    }
