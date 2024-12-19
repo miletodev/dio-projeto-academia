@@ -5,10 +5,15 @@ Este projeto foi desenvolvido seguindo a trilha de formação em Java da DIO.
 
 ## 📋 Descrição
 
-A aplicação fornece funcionalidades para gerenciar alunos e avaliações físicas, possibilitando:
-- Cadastro de alunos;
-- Registro de avaliações físicas;
-- Consulta de dados dos alunos e histórico das avaliações.
+O sistema **Academia Digital** é uma aplicação para o gerenciamento de academias. Ele permite criar, consultar e excluir matriulas e alunos, além de gerenciar avaliações físicas dos alunos por meio de um cadastro integrado.
+
+A principal funcionalidade do sistema é realizar o controle de:
+
+- Matrículas de Alunos.
+- Informações do Aluno (incluindo dados básicos).
+- Avaliações físicas associadas aos alunos.
+
+A arquitetura do projeto segue o padrão Spring Boot com camadas bem definidas para entidades, repositórios, serviços e controladores.
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -20,6 +25,16 @@ As principais tecnologias e frameworks utilizados neste projeto são:
 - **Hibernate** (implementação de JPA)
 - **Lombok** (para reduzir boilerplate code)
 - **Maven** (gerenciamento de dependências)
+- **JUnit 5** (para testes unitários e de integração)
+
+## 🏗️ Arquitetura do Sistema
+
+O projeto utiliza o padrão de arquitetura baseado em camadas:
+
+- **Entidades (Modelos)**: Representam as tabelas e estruturas de dados do banco de dados. Cada entidade é anotada com @Entity e configura atributos como colunas.
+- **Repositórios (Repositories)**: Interfaces para acesso aos dados persistidos no banco de dados, utilizando o Spring Data JPA e facilitando a criação de consultas.
+- **Serviços (Services)**: Contém a lógica de negócios, responsáveis por implementar as regras como criação, exclusão e modificações nos dados.
+- **Controladores (Controllers)**: Disponibilizam endpoints REST para acesso aos recursos do sistema, usando as convenções **HTTP** como **GET**, **POST**, **PUT** e **DELETE**.
 
 ## 📦 Dependências e Configuração
 
