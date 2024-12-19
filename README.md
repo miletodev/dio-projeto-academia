@@ -25,7 +25,7 @@ As principais tecnologias e frameworks utilizados neste projeto são:
 - **Hibernate** (implementação de JPA)
 - **Lombok** (para reduzir boilerplate code)
 - **Maven** (gerenciamento de dependências)
-- **JUnit 5** (para testes unitários e de integração)
+- **Postman** (para testes de endpoints REST)
 
 ## 🏗️ Arquitetura do Sistema
 
